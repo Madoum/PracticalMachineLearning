@@ -177,7 +177,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="PRACTICAL-MACHINE-LEARNING">PRACTICAL MACHINE LEARNING<a class="anchor-link" href="#PRACTICAL-MACHINE-LEARNING">&#182;</a></h1>
-<p>Better viewed with google-chrome </p>
 </div>
 </div>
 </div>
@@ -193,7 +192,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1">#read.csv(file_dest_training, na.strings=c(&quot;NA&quot;,&quot;&quot;), header=TRUE)</span>
@@ -212,7 +211,7 @@ ExoData<span class="o">=</span>read.csv<span class="p">(</span>file<span class="
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 19622
@@ -220,7 +219,7 @@ ExoData<span class="o">=</span>read.csv<span class="p">(</span>file<span class="
 
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <ol class=list-inline>
@@ -248,7 +247,7 @@ ExoData<span class="o">=</span>read.csv<span class="p">(</span>file<span class="
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>b<span class="o">=</span><span class="kp">sapply</span><span class="p">(</span>ExoData<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="kp">sum</span><span class="p">(</span><span class="kp">is.na</span><span class="p">(</span>x<span class="p">)))</span>
@@ -265,7 +264,7 @@ FullData<span class="o">=</span><span class="kp">subset</span><span class="p">(<
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <ol class=list-inline>
@@ -293,7 +292,7 @@ FullData<span class="o">=</span><span class="kp">subset</span><span class="p">(<
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>smartData<span class="o">=</span>FullData
@@ -311,7 +310,7 @@ s<span class="o">=</span><span class="kp">sapply</span><span class="p">(</span>s
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <ol class=list-inline>
@@ -918,7 +917,7 @@ The following object is masked from ‘package:ggplot2’:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>rf.pred<span class="o">=</span>predict<span class="p">(</span>fit<span class="p">,</span>testD<span class="p">[,</span><span class="m">-58</span><span class="p">])</span>
@@ -934,7 +933,7 @@ confusionMat
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -971,15 +970,15 @@ rf.pred    A    B    C    D    E
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>the results appear to be too precise to be true, which means we are probably overfitting.
-However, we are using cross validation to select the variables and it appears peak above 0.9998 accuracy around 30 variables. We where unable to find an explanation for overfitting and had to conclude that the high performance on the test set is probably due to data being artificial not having enough noise.</p>
+<h4 id="Suscpiciously-High-Accuracy">Suscpiciously High Accuracy<a class="anchor-link" href="#Suscpiciously-High-Accuracy">&#182;</a></h4><p>the results appear to be too precise to be true, which would mean we are probably overfitting.
+However, we are using cross validation to select the variables and it appears to peak above 0.9998 accuracy around 30 variables. We where unable to find an explanation for overfitting and had to conclude that the high performance on the test set is probably due to data being artificial and not having enough noise.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>vData<span class="o">=</span>read.csv<span class="p">(</span>file<span class="o">=</span><span class="s">&quot;pml-testing.csv&quot;</span><span class="p">,</span> na.strings<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;NA&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">),</span> header<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
@@ -1002,7 +1001,7 @@ s<span class="o">=</span><span class="kp">sapply</span><span class="p">(</span>s
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <ol class=list-inline>
@@ -1018,17 +1017,27 @@ s<span class="o">=</span><span class="kp">sapply</span><span class="p">(</span>s
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Prediction-Results">Prediction Results<a class="anchor-link" href="#Prediction-Results">&#182;</a></h1><p>bellow the prediction results for the 20 test cases:</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>validationData<span class="o">=</span>svData
 validationData<span class="o">$</span>cvtd_timestamp<span class="o">=</span><span class="kc">NULL</span>
 validationData<span class="o">$</span>new_window<span class="o">=</span><span class="kc">NULL</span>
-<span class="kp">nrow</span><span class="p">(</span>validationData<span class="p">)</span>
+<span class="c1">#nrow(validationData)</span>
 <span class="c1">#str(validationData)</span>
-<span class="kp">dim</span><span class="p">(</span>validationData<span class="p">)</span>
+<span class="c1">#dim(validationData)</span>
 validation.pred<span class="o">=</span>predict<span class="p">(</span>fit<span class="p">,</span> validationData<span class="p">)</span>
 validation.pred
 </pre></div>
@@ -1041,27 +1050,7 @@ validation.pred
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-20
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<ol class=list-inline>
-	<li>20</li>
-	<li>58</li>
-</ol>
-
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <ol class=list-inline>
