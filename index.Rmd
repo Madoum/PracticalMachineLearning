@@ -1,24 +1,17 @@
 ---
-title: "Practical Machine Learning Course Project"
-author: "MABE TENE EPSE FONGANG IVETTE"
-date: "17 April 2016"
+title: "PRACTICAL MACHINE LEARNING"
 output: html_document
 ---
+## INTRODUCTION
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## INSTRUCTIONS
-
-The goal of your project is to predict the manner in which they did the exercise. This is the "classe" variable in the training set. You may use any of the other variables to predict with. You should create a report describing how you built your model, how you used cross validation, what you think the expected out of sample error is, and why you made the choices you did. You will also use your prediction model to predict 20 different test cases.
+The goal of our project is to predict the manner in which they did the exercise. This is the "classe" variable in the training set. We use appropriate  variables to predict with. We create a report describing how we built our model, how we used cross validation, what we think the expected out of sample error is, and why we made the choices you did. We also use our prediction model to predict 20 different test cases.
 
 ## INPUT DATA
 
 ```{r}
 ExoData=read.csv(file="pml-training.csv", na.strings=c("NA",""), header=TRUE)
 nrow(ExoData)
-str(ExoData)
+#str(ExoData)
 dim(ExoData)
 ```
 ## FEATURES
@@ -27,21 +20,28 @@ Having verified that the schema of both the training and testing sets are not id
 ```{r}
 b=sapply(ExoData, function(x) sum(is.na(x)))
 FullData=subset(ExoData,select=c(which(!b>0)), stringsAsFactors=FALSE)
-str(FullData)
+#str(FullData)
 dim(FullData)
+```
+which leaves use with only 60 variables to train on.
+
+```{r}
+smartData=FullData
+smartData=smartData[,colSums(smartData != 0) != 0] 
+dim(smartData)
+s=sapply(smartData, function(x) sum(is.na(x)))
+#str(smartData)
 ```
 
 ## RANDOM FOREST
+
+We implement a random forest model using cross validation to control overfitting.
 
 ```{r}
 library(caret)
 library(mlbench)
 ```
 
-## CROSS VALDATION
-
-
- I decided to assess the impact/value of including preprocessing.
 ```{r}
 tData=smartData
 tData$cvtd_timestamp=NULL #with these in, there was a factor level mismatch with final validation set
@@ -61,30 +61,33 @@ library(doParallel)
 cluster <- makeCluster(detectCores() - 1) # convention to leave 1 core for OS
 registerDoParallel(cluster)
 ```
+## CROSS VALIDATION
+
+we use 10-folds cross validation to control overfitting.
 
 ```{r}
 fitControl <- trainControl(method = "cv",
                            number = 10,
                            allowParallel = TRUE)
 ```
-
+### Training
 ```{r}
 fit <- train(x,y, method="rf",data=trainD,trControl = fitControl)
 plot(fit)
 ```
-The confusion matrix show a very high accuracy in the random forest model, therefore this model will be selected to predict the values in the test set
-Predicting new values
+### Confusion Matrix
 
 ```{r}
-rf.pred=predict(fit,testD[,-60])
-confusionMat=table(rf.pred,testD[,60])
+rf.pred=predict(fit,testD[,-58])
+confusionMat=table(rf.pred,testD[,58])
 confusionMat
 ```
+### Suscpiciously High Accuracy
+The results appear to be too precise to be true, which would mean we are probably overfitting. However, we are using cross validation to select the variables and it appears to peak above 0.9998 accuracy around 30 variables. We where unable to find an explanation for overfitting and suspect that the high performance on the test set is probably due to data being artificial and not having enough noise.
 
-```{r}
-#str(trainD)
-```
-The results appear to be too precise to be true, which means we are probably overfitting. However, we are using cross validation to select the variables and it appears peak above 0.9998 accuracy around 30 variables. We where unable to find an explanation for overfitting and had to conclude that the high performance on the test set is probably due to data being artificial not having enough noise.
+
+## Prediction Results
+bellow the prediction results for the 20 test cases:
 ```{r}
 vData=read.csv(file="pml-testing.csv", na.strings=c("NA",""), header=TRUE)
 b=sapply(vData, function(x) sum(is.na(x)))
@@ -95,19 +98,17 @@ svData=fvData
 svData=svData[,colSums(svData != 0) != 0] 
 dim(svData)
 s=sapply(svData, function(x) sum(is.na(x)))
-str(svData)
+#str(svData)
 ```
 
-Finally we use the cm_rf model in the test set to predict the “Classe” variable
+
 ```{r}
 validationData=svData
 validationData$cvtd_timestamp=NULL
 validationData$new_window=NULL
-nrow(validationData)
-str(validationData)
-dim(validationData)
+#nrow(validationData)
+#str(validationData)
+#dim(validationData)
 validation.pred=predict(fit, validationData)
 validation.pred
 ```
-
-  
