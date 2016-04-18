@@ -75,6 +75,7 @@ fitControl <- trainControl(method = "cv",
 fit <- train(x,y, method="rf",data=trainD,trControl = fitControl)
 plot(fit)
 ```
+
 ### Confusion Matrix
 
 ```{r}
